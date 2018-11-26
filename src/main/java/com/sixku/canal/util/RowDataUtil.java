@@ -32,12 +32,23 @@ public class RowDataUtil {
      * @throws InvocationTargetException
      * @throws InstantiationException
      */
-    public static <T> T extract2Object(CanalEntry.RowData rowData, Class<T> clazz)
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T> T extract2Object(CanalEntry.RowData rowData, Class<T> clazz, String flag)throws Exception{
 
-        List<CanalEntry.Column> afterColumnsList = rowData.getAfterColumnsList();
+        List<CanalEntry.Column> columnsList = null;
+        if("before".equals(flag)){
+            columnsList = rowData.getBeforeColumnsList();
+        }
+
+        if("after".equals(flag)){
+            columnsList = rowData.getAfterColumnsList();
+        }
+
+        if(columnsList == null){
+            return null;
+        }
+
         Map<String,String> rowDataMap= new HashMap<String, String>();
-        for(CanalEntry.Column column : afterColumnsList){
+        for(CanalEntry.Column column : columnsList){
 //            System.out.println("rowdata   " + column.getName()+" : "+column.getValue());
             rowDataMap.put(CamelUtil.underlineToCamel(column.getName()),column.getValue());
         }

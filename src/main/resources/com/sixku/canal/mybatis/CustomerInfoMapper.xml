@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sixku.canal.mybatis.CustomerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.sixku.canal.mybatis.domain.CustomerInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="register_channel" jdbcType="VARCHAR" property="registerChannel" />
+    <result column="cert_id" jdbcType="VARCHAR" property="certId" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="face_video_id" jdbcType="VARCHAR" property="faceVideoId" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
+    <result column="cert_front_url" jdbcType="VARCHAR" property="certFrontUrl" />
+    <result column="cert_reverse_url" jdbcType="VARCHAR" property="certReverseUrl" />
+    <result column="cert_start_date" jdbcType="TIMESTAMP" property="certStartDate" />
+    <result column="cert_end_date" jdbcType="TIMESTAMP" property="certEndDate" />
+    <result column="invite_code" jdbcType="VARCHAR" property="inviteCode" />
+    <result column="invite_customer" jdbcType="VARCHAR" property="inviteCustomer" />
+    <result column="is_realname" jdbcType="VARCHAR" property="isRealname" />
+    <result column="is_wx_collect" jdbcType="VARCHAR" property="isWxCollect" />
+    <result column="customer_id_earth" jdbcType="VARCHAR" property="customerIdEarth" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="black_flag" jdbcType="VARCHAR" property="blackFlag" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, customer_id, register_channel, cert_id, real_name, mobile, native_place, sex, 
+    age, email, face_video_id, password, head_url, cert_front_url, cert_reverse_url, 
+    cert_start_date, cert_end_date, invite_code, invite_customer, is_realname, is_wx_collect, 
+    customer_id_earth, status, black_flag, create_user, update_user, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.sixku.canal.mybatis.domain.CustomerInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from customer_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sixku.canal.mybatis.domain.CustomerInfoExample">
+    delete from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sixku.canal.mybatis.domain.CustomerInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer_info (customer_id, register_channel, cert_id, 
+      real_name, mobile, native_place, 
+      sex, age, email, face_video_id, 
+      password, head_url, cert_front_url, 
+      cert_reverse_url, cert_start_date, cert_end_date, 
+      invite_code, invite_customer, is_realname, 
+      is_wx_collect, customer_id_earth, status, 
+      black_flag, create_user, update_user, 
+      create_time, update_time)
+    values (#{customerId,jdbcType=VARCHAR}, #{registerChannel,jdbcType=VARCHAR}, #{certId,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{faceVideoId,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, #{certFrontUrl,jdbcType=VARCHAR}, 
+      #{certReverseUrl,jdbcType=VARCHAR}, #{certStartDate,jdbcType=TIMESTAMP}, #{certEndDate,jdbcType=TIMESTAMP}, 
+      #{inviteCode,jdbcType=VARCHAR}, #{inviteCustomer,jdbcType=VARCHAR}, #{isRealname,jdbcType=VARCHAR}, 
+      #{isWxCollect,jdbcType=VARCHAR}, #{customerIdEarth,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{blackFlag,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sixku.canal.mybatis.domain.CustomerInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="registerChannel != null">
+        register_channel,
+      </if>
+      <if test="certId != null">
+        cert_id,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="nativePlace != null">
+        native_place,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="faceVideoId != null">
+        face_video_id,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="headUrl != null">
+        head_url,
+      </if>
+      <if test="certFrontUrl != null">
+        cert_front_url,
+      </if>
+      <if test="certReverseUrl != null">
+        cert_reverse_url,
+      </if>
+      <if test="certStartDate != null">
+        cert_start_date,
+      </if>
+      <if test="certEndDate != null">
+        cert_end_date,
+      </if>
+      <if test="inviteCode != null">
+        invite_code,
+      </if>
+      <if test="inviteCustomer != null">
+        invite_customer,
+      </if>
+      <if test="isRealname != null">
+        is_realname,
+      </if>
+      <if test="isWxCollect != null">
+        is_wx_collect,
+      </if>
+      <if test="customerIdEarth != null">
+        customer_id_earth,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="blackFlag != null">
+        black_flag,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerChannel != null">
+        #{registerChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="certId != null">
+        #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="faceVideoId != null">
+        #{faceVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null">
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certFrontUrl != null">
+        #{certFrontUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certReverseUrl != null">
+        #{certReverseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certStartDate != null">
+        #{certStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certEndDate != null">
+        #{certEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteCode != null">
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCustomer != null">
+        #{inviteCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealname != null">
+        #{isRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="isWxCollect != null">
+        #{isWxCollect,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdEarth != null">
+        #{customerIdEarth,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="blackFlag != null">
+        #{blackFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sixku.canal.mybatis.domain.CustomerInfoExample" resultType="java.lang.Long">
+    select count(*) from customer_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update customer_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.customerId != null">
+        customer_id = #{record.customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerChannel != null">
+        register_channel = #{record.registerChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certId != null">
+        cert_id = #{record.certId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativePlace != null">
+        native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceVideoId != null">
+        face_video_id = #{record.faceVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headUrl != null">
+        head_url = #{record.headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certFrontUrl != null">
+        cert_front_url = #{record.certFrontUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certReverseUrl != null">
+        cert_reverse_url = #{record.certReverseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certStartDate != null">
+        cert_start_date = #{record.certStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certEndDate != null">
+        cert_end_date = #{record.certEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inviteCode != null">
+        invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviteCustomer != null">
+        invite_customer = #{record.inviteCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRealname != null">
+        is_realname = #{record.isRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isWxCollect != null">
+        is_wx_collect = #{record.isWxCollect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerIdEarth != null">
+        customer_id_earth = #{record.customerIdEarth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackFlag != null">
+        black_flag = #{record.blackFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null">
+        create_user = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUser != null">
+        update_user = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update customer_info
+    set id = #{record.id,jdbcType=BIGINT},
+      customer_id = #{record.customerId,jdbcType=VARCHAR},
+      register_channel = #{record.registerChannel,jdbcType=VARCHAR},
+      cert_id = #{record.certId,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      face_video_id = #{record.faceVideoId,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      head_url = #{record.headUrl,jdbcType=VARCHAR},
+      cert_front_url = #{record.certFrontUrl,jdbcType=VARCHAR},
+      cert_reverse_url = #{record.certReverseUrl,jdbcType=VARCHAR},
+      cert_start_date = #{record.certStartDate,jdbcType=TIMESTAMP},
+      cert_end_date = #{record.certEndDate,jdbcType=TIMESTAMP},
+      invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      invite_customer = #{record.inviteCustomer,jdbcType=VARCHAR},
+      is_realname = #{record.isRealname,jdbcType=VARCHAR},
+      is_wx_collect = #{record.isWxCollect,jdbcType=VARCHAR},
+      customer_id_earth = #{record.customerIdEarth,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      black_flag = #{record.blackFlag,jdbcType=VARCHAR},
+      create_user = #{record.createUser,jdbcType=VARCHAR},
+      update_user = #{record.updateUser,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sixku.canal.mybatis.domain.CustomerInfo">
+    update customer_info
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerChannel != null">
+        register_channel = #{registerChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="certId != null">
+        cert_id = #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null">
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="faceVideoId != null">
+        face_video_id = #{faceVideoId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null">
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certFrontUrl != null">
+        cert_front_url = #{certFrontUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certReverseUrl != null">
+        cert_reverse_url = #{certReverseUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certStartDate != null">
+        cert_start_date = #{certStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certEndDate != null">
+        cert_end_date = #{certEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteCode != null">
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCustomer != null">
+        invite_customer = #{inviteCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealname != null">
+        is_realname = #{isRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="isWxCollect != null">
+        is_wx_collect = #{isWxCollect,jdbcType=VARCHAR},
+      </if>
+      <if test="customerIdEarth != null">
+        customer_id_earth = #{customerIdEarth,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="blackFlag != null">
+        black_flag = #{blackFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sixku.canal.mybatis.domain.CustomerInfo">
+    update customer_info
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      register_channel = #{registerChannel,jdbcType=VARCHAR},
+      cert_id = #{certId,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      face_video_id = #{faceVideoId,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      head_url = #{headUrl,jdbcType=VARCHAR},
+      cert_front_url = #{certFrontUrl,jdbcType=VARCHAR},
+      cert_reverse_url = #{certReverseUrl,jdbcType=VARCHAR},
+      cert_start_date = #{certStartDate,jdbcType=TIMESTAMP},
+      cert_end_date = #{certEndDate,jdbcType=TIMESTAMP},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      invite_customer = #{inviteCustomer,jdbcType=VARCHAR},
+      is_realname = #{isRealname,jdbcType=VARCHAR},
+      is_wx_collect = #{isWxCollect,jdbcType=VARCHAR},
+      customer_id_earth = #{customerIdEarth,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      black_flag = #{blackFlag,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectIndinfo" parameterType="java.lang.String" resultType="java.lang.String">
+    select CUSTOMERID
+    from als7db.ind_info
+    where CERTID = #{certid,jdbcType=VARCHAR}
+  </select>
+</mapper>
